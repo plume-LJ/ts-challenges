@@ -1,0 +1,208 @@
+<div class="group">
+  <p>原图:</p>
+  <canvas id="out1"></canvas>
+</div>
+<div class="group">
+  <p>马赛克:</p>
+  <canvas id="out2"></canvas>
+</div>
+<script>
+  const getImgData = (url) => {
+    let dom = document.createElement("canvas");
+    const ctx = dom.getContext("2d");
+    const image = new Image();
+    image.src = url;
+    return new Promise((resolve) => {
+      image.onload = () => {
+        const width = image.width;
+        const height = image.height;
+        dom.width = width;
+        dom.height = height;
+        console.log(`图片宽高：${width}, ${height}；像素点：${width * height}`);
+        ctx.drawImage(image, 0, 0, width, height);
+        // 获取图片信息
+        const imgData = ctx.getImageData(0, 0, width, height);
+        dom = null;
+        resolve({
+          data: imgData.data,
+          width,
+          height,
+        });
+      };
+    });
+  };
+  /**
+   * 图片数组+宽+高 => 矩阵数组
+   * @param {Array<number>} arr 图片数组
+   * @param {number} width 宽
+   * @param {number} height 高
+   */
+  const splitImgData = (arr, width, height) => {
+    const list = [];
+    const result = [];
+    const len = Math.ceil(arr.length / 4);
+    // 行数获取
+    for (let i = 0; i < len; i++) {
+      const start = i * 4;
+      list.push([arr[start], arr[start + 1], arr[start + 2], arr[start + 3]]);
+    }
+    // 纵列嵌套
+    for (let h = 0; h < height; h++) {
+      const temp = [];
+      for (let w = 0; w < width; w++) {
+        temp.push(list[h * width + w]);
+      }
+      result.push(temp);
+    }
+    return result;
+  };
+  /**
+   * 矩阵数组=>图片
+   * @param {Array<Array<Array<number>>>} matrix
+   * @param {Document} dom canvas DOM
+   */
+  const printImg = (matrix, dom) => {
+    const ctx = dom.getContext("2d");
+    const width = matrix[0].length;
+    const height = matrix.length;
+    dom.width = width;
+    dom.height = height;
+    // 创建图片数组对象
+    const matrixObj = ctx.createImageData(width, height);
+    // 矩阵解耦，空数组设为白色
+    const _matrix = matrix
+      .flat(1)
+      .map((arr) => (arr.length ? arr : [0, 0, 0, 0]))
+      .flat(1);
+    // 图片数组 加入图片数组对象
+    matrixObj.data.set(_matrix);
+    // 绘制
+    ctx.putImageData(matrixObj, 0, 0);
+  };
+  /**
+   * 获取 x y 那个点的颜色数组
+   * @param {Array<Array<Array<number>>>} matrix
+   * @param {number} y
+   * @param {number} x
+   */
+  const getMatrix_XY = (matrix, y, x) => {
+    return matrix[y] ? matrix[y][x] || [] : [];
+  };
+
+  /**
+   * 获取平均数(返回整数)
+   * @param {Array<number>} arr
+   */
+  const getAverage = (arr) => Math.ceil(eval(arr.join("+")) / arr.length);
+
+  /**
+   * 打码（矩阵数组=>矩阵数组）
+   * @param {Array<Array<Array<number>>>} matrix
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {number} granular 颗粒度像素
+   */
+  const imgCoding = (matrix, x, y, width, height, granular) => {
+    const _matrix = JSON.parse(JSON.stringify(matrix));
+    /* 打码块
+     * {
+     *    'g_x, g_y': {
+     *      'x,y': [r,g,b,a],
+     *      'x,y': [r,g,b,a],
+     *    },
+     *    'g_x, g_y': {
+     *      'x,y': [r,g,b,a],
+     *      'x,y': [r,g,b,a],
+     *    }
+     * }
+     */
+    const codingBlock = {};
+    for (let w = 0; w < width; w++) {
+      const groupX = Math.ceil((w + 1) / granular) - 1;
+      for (let h = 0; h < height; h++) {
+        const groupY = Math.ceil((h + 1) / granular) - 1;
+        const target = getMatrix_XY(_matrix, w + x, h + y);
+        if (target.length) {
+          if (codingBlock[`${groupX},${groupY}`]) {
+            codingBlock[`${groupX},${groupY}`][`${w + x},${h + y}`] = target;
+          } else {
+            codingBlock[`${groupX},${groupY}`] = {};
+            codingBlock[`${groupX},${groupY}`][`${w + x},${h + y}`] = target;
+          }
+        }
+      }
+    }
+    for (const k in codingBlock) {
+      const arr_r = [];
+      const arr_g = [];
+      const arr_b = [];
+      const arr_a = [];
+      for (const key in codingBlock[k]) {
+        arr_r.push(codingBlock[k][key][0]);
+        arr_g.push(codingBlock[k][key][1]);
+        arr_b.push(codingBlock[k][key][2]);
+        arr_a.push(codingBlock[k][key][3]);
+      }
+      const color = [
+        getAverage(arr_r),
+        getAverage(arr_g),
+        getAverage(arr_b),
+        getAverage(arr_a),
+      ];
+      for (const key in codingBlock[k]) {
+        const [_x, _y] = key.split(",");
+        _matrix[Number(_x)][Number(_y)] = color;
+      }
+    }
+    return _matrix;
+  };
+
+  /**
+   * 旋转
+   * @param {Array<Array<Array<number>>>} matrix
+   * @param {'left' | 'right'} direction
+   */
+  const rotate = (matrix, direction) => {
+    const _matrix = JSON.parse(JSON.stringify(matrix));
+    const new_width = matrix[0].length;
+    const new_height = matrix.length;
+    const newMatrix = [];
+    // 左转
+    if (direction === "left") {
+      for (let x = 0; x < new_width; x++) {
+        const temp = [];
+        for (let y = 0; y < new_height; y++) {
+          temp.push(getMatrix_XY(_matrix, y, new_width - 1 - x));
+        }
+        newMatrix.push(temp);
+      }
+    }
+    // 右转
+    if (direction === "right") {
+      for (let x = 0; x < new_width; x++) {
+        const temp = [];
+        for (let y = 0; y < new_height; y++) {
+          temp.push(getMatrix_XY(_matrix, new_height - 1 - y, x));
+        }
+        newMatrix.push(temp);
+      }
+    }
+    return newMatrix;
+  };
+
+  const canvas_out1 = document.getElementById("out1");
+
+  getImgData("./coming.png").then(({ data, width, height }) => {
+    console.log(data)
+    const matrix = splitImgData(data, width, height);
+    printImg(matrix, canvas_out1);
+  });
+  const canvas_out2 = document.getElementById("out2");
+
+  getImgData("./coming.png").then(({ data, width, height }) => {
+    const matrix = rotate(splitImgData(data, width, height), "right");
+    printImg(imgCoding(matrix, 0, 0, 448, 404, 2), canvas_out2);
+  });
+</script>
