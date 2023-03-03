@@ -3,14 +3,17 @@ type WhiteSpace = " " | "\n" | "\t";
 type TrimLeft<S extends string> = S extends `${WhiteSpace}${infer U}`
   ? TrimLeft<U>
   : S;
-type Trim<S extends string> = S extends `${WhiteSpace}${infer U}`
-  ? Trim<U>
-  : S extends `${infer U}${WhiteSpace}`
-  ? Trim<U>
-  : S;
+// type Trim<S extends string> = S extends `${WhiteSpace}${infer U}`
+//   ? Trim<U>
+//   : S extends `${infer U}${WhiteSpace}`
+//   ? Trim<U>
+//   : S;
+  
 type TrimRight<S extends string> = S extends `${infer U}${WhiteSpace}`
   ? TrimRight<U>
   : S;
+
+type Trim<S extends string> = TrimRight<TrimLeft<S>>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";

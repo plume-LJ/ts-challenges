@@ -62,7 +62,6 @@ type FlattenDepth<T extends any[], depth extends number = 1> = depth extends 0
     : [first, ...FlattenDepth<rest, depth>]
   : T;
 
-type aaa = FlattenDepth<[1,[2]], 99999999>;
 import type { Equal, Expect } from "@type-challenges/utils";
 
 type cases = [
@@ -72,8 +71,19 @@ type cases = [
   Expect<Equal<FlattenDepth<[1, 2, [3, 4], [[[5]]]], 2>, [1, 2, 3, 4, [5]]>>,
   Expect<Equal<FlattenDepth<[1, 2, [3, 4], [[[5]]]]>, [1, 2, 3, 4, [[5]]]>>,
   Expect<Equal<FlattenDepth<[1, [2, [3, [4, [5]]]]], 3>, [1, 2, 3, 4, [5]]>>,
-  Expect<
-    Equal<FlattenDepth<[1, [2, [3, [4, [5]]]]], 9999>, [1, 2, 3, 4, 5]>
-  >
+  Expect<Equal<FlattenDepth<[1, [2, [3, [4, [5]]]]], 9999>, [1, 2, 3, 4, 5]>>
 ];
-[1,2,3,4,5]
+[1, 2, 3, 4, 5];
+
+type TupleToNestedObject<T, U> = T extends [infer first extends PropertyKey,...infer rest] ? {
+  [k in first]:  TupleToNestedObject<rest,U>
+}:U
+
+type cc = [] extends [infer first extends PropertyKey,...infer rest] ?rest:false
+
+type case1s = [
+  Expect<Equal<TupleToNestedObject<['a'], string>, { a: string }>>,
+  Expect<Equal<TupleToNestedObject<['a', 'b'], number>, { a: { b: number } }>>,
+  Expect<Equal<TupleToNestedObject<['a', 'b', 'c'], boolean>, { a: { b: { c: boolean } } }>>,
+  Expect<Equal<TupleToNestedObject<[], boolean>, boolean>>,
+]

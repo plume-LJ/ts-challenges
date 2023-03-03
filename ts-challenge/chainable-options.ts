@@ -4,52 +4,54 @@
 // }
 
 type Chainable<R = {}> = {
-  option<K extends PropertyKey, V extends any>(key: K extends keyof R ? never : K, value: V): Chainable<Omit<R, K> & Record<K, V>>
-  get(): R
-}
-
+  option<K extends PropertyKey, V extends any>(
+    key: K extends keyof R ? never : K,
+    value: V
+  ): Chainable<Omit<R, K> & Record<K, V>>;
+  get(): R;
+};
 
 /* _____________ Test Cases _____________ */
-import type { Alike, Expect } from '@type-challenges/utils'
+import type { Alike, Expect } from "@type-challenges/utils";
 
-declare const a: Chainable
+declare const a: Chainable;
 
 const result1 = a
-  .option('foo', 123)
-  .option('bar', { value: 'Hello World' })
-  .option('name', 'type-challenges')
-  .get()
+  .option("foo", 123)
+  .option("bar", { value: "Hello World" })
+  .option("name", "type-challenges")
+  .get();
 
 const result2 = a
-  .option('name', 'another name')
+  .option("name", "another name")
   // @ts-expect-error
-  .option('name', 'last name')
-  .get()
+  .option("name", "last name")
+  .get();
 
 const result3 = a
-  .option('name', 'another name')
+  .option("name", "another name")
   // @ts-expect-error
-  .option('name', 123)
-  .get()
+  .option("name", 123)
+  .get();
 
 type cases = [
   Expect<Alike<typeof result1, Expected1>>,
   Expect<Alike<typeof result2, Expected2>>,
-  Expect<Alike<typeof result3, Expected3>>,
-]
+  Expect<Alike<typeof result3, Expected3>>
+];
 
 type Expected1 = {
-  foo: number
+  foo: number;
   bar: {
-    value: string
-  }
-  name: string
-}
+    value: string;
+  };
+  name: string;
+};
 
 type Expected2 = {
-  name: string
-}
+  name: string;
+};
 
 type Expected3 = {
-  name: number
-}
+  name: number;
+};
