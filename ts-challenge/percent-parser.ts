@@ -3,7 +3,7 @@ type M = "+" | "-";
 type PercentageParser<T> = T extends `${infer F}${infer R}`
   ? F extends M
     ? [F, ...(R extends `${infer K}%` ? [K, "%"] : [R, ""])]
-    : ["", ...(T extends `${infer Y}%` ? [Y, "%"] : [T, ""])]
+    : ["", ...(T extends `${infer K}%` ? [K, "%"] : [T, ""])]
   : ["", "", ""];
 // type PercentageParser<
 //   A extends string,

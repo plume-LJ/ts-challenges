@@ -90,7 +90,7 @@ import type { Equal, Expect } from "@type-challenges/utils";
 type c<S> = S extends `${infer Last extends "%"}` ? Last : never;
 type cc = c<"32%">;
 
-type ccc = PlusOne<9_007_199_254_740_991>;
+type ccc = PlusOne<-1>;
 
 type cases = [
   Expect<Equal<MinusOne<1>, 0>>,

@@ -37,6 +37,14 @@ type Baz = {
   bar(): void;
   baz: string;
 };
+const cc: unique symbol= Symbol(2) 
+type Caz = {
+  // [k: symbol]: string;
+  // [k: string]: string
+  [cc]:2
+}
+
+type c = RemoveIndexSignature<Caz>
 
 type cases = [
   Expect<Equal<RemoveIndexSignature<Foo>, { foo(): void }>>,

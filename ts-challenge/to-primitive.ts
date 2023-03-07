@@ -11,9 +11,11 @@
 // };
 
 type ToPrimitive<T> = T extends object
-  ? {
-      [Key in keyof T]: ToPrimitive<T[Key]>;
-    }
+  ? T extends Function
+    ? T
+    : {
+        [Key in keyof T]: ToPrimitive<T[Key]>;
+      }
   : T extends { valueOf: () => infer P }
   ? P
   : T;
@@ -36,6 +38,8 @@ type PersonInfo = {
   dd: undefined;
   ee: void;
   ff: never;
+  gg: () => void;
+  // hh: String
 };
 
 type ccc = BigInt64Array["valueOf"];
@@ -59,6 +63,10 @@ type ExpectedResult = {
   dd: undefined;
   ee: void;
   ff: never;
+  gg: () => void;
+  // hh: string
 };
+
+type cccc = ToPrimitive<PersonInfo>;
 
 type cases = [Expect<Equal<ToPrimitive<PersonInfo>, ExpectedResult>>];

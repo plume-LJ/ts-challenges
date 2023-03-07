@@ -10,7 +10,7 @@ type Join<T, U extends string | number> = T extends [
   ...infer R
 ]
   ? // move the logic into ${}
-    `${F}${R extends [] ? `` : U}${Join<R, U>}`
+    `${F}${R extends [] ? '' : U}${Join<R, U>}`
   : ``;
 
 /* _____________ Test Cases _____________ */

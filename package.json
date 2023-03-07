@@ -1,0 +1,25 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@type-challenges/utils": "^0.1.1",
+    "jsdom": "^21.1.0",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plume-LJ/ts-challenges.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plume-LJ/ts-challenges/issues"
+  },
+  "homepage": "https://github.com/plume-LJ/ts-challenges#readme",
+  "description": ""
+}

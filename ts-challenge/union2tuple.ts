@@ -30,6 +30,7 @@ type UnionToTuple<Union, T extends any[] = [], Last = GetUnionLast<Union>> = {
   1: UnionToTuple<Exclude<Union, Last>, Prepend<T, Last>>
 }[[Union] extends [never] ? 0 : 1]
 
-type cc = UnionToTuple<'2'|'23'>
+type cc = UnionToTuple<string|number>
+type ccc = UnionToInterFunction<string|number>
 
 type dd = UnionToTuple<Combination<["foo", "bar", "baz","2"]>>['length']

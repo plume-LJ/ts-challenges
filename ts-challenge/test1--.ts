@@ -34,4 +34,8 @@ type Gened<A extends string, R extends string = '', L extends string = MaxV>
 
   type test = Gened<'9999999', '23', '6'>
 
+  type Obj = {
+    a: string
+    b: number
+  }
 
