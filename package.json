@@ -21,5 +21,8 @@
     "url": "https://github.com/plume-LJ/ts-challenges/issues"
   },
   "homepage": "https://github.com/plume-LJ/ts-challenges#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
 }

@@ -1,0 +1,117 @@
+function twoSum(nums: number[], target: number): number[] {
+  let helperMap: Map<number, number> = new Map();
+  let index: number | undefined;
+  let resArr: number[] = [];
+  for (let i = 0, length = nums.length; i < length; i++) {
+    index = helperMap.get(target - nums[i]);
+    if (index !== undefined) {
+      resArr = [i, index];
+    }
+    helperMap.set(nums[i], i);
+  }
+  return resArr;
+}
+
+function fourSumCount(
+  nums1: number[],
+  nums2: number[],
+  nums3: number[],
+  nums4: number[]
+): number {
+  let helperMap: Map<number, number> = new Map();
+  let resNum: number = 0;
+  let tempVal: number | undefined;
+  for (let i of nums1) {
+    for (let j of nums2) {
+      tempVal = helperMap.get(i + j);
+      helperMap.set(i + j, tempVal ? tempVal + 1 : 1);
+    }
+  }
+  for (let k of nums3) {
+    for (let l of nums4) {
+      tempVal = helperMap.get(0 - (k + l));
+      if (tempVal) {
+        resNum += tempVal;
+      }
+    }
+  }
+  return resNum;
+}
+
+function threeSum(nums: number[]): number[][] {
+  nums.sort((a, b) => a - b);
+  let length = nums.length;
+  let left: number = 0,
+    right: number = length - 1;
+  let resArr: number[][] = [];
+  for (let i = 0; i < length; i++) {
+    if (nums[i] > 0) {
+      return resArr; //nums经过排序后，只要nums[i]>0, 此后的nums[i] + nums[left] + nums[right]均大于0,可以提前终止循环。
+    }
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    left = i + 1;
+    right = length - 1;
+    while (left < right) {
+      let total: number = nums[i] + nums[left] + nums[right];
+      if (total === 0) {
+        resArr.push([nums[i], nums[left], nums[right]]);
+        left++;
+        right--;
+        while (nums[right] === nums[right + 1]) {
+          right--;
+        }
+        while (nums[left] === nums[left - 1]) {
+          left++;
+        }
+      } else if (total < 0) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+  return resArr;
+}
+
+function fourSum(nums: number[], target: number): number[][] {
+  nums.sort((a, b) => a - b);
+  let first: number = 0,
+      second: number,
+      third: number,
+      fourth: number;
+  let length: number = nums.length;
+  let resArr: number[][] = [];
+  for (; first < length; first++) {
+      if (first > 0 && nums[first] === nums[first - 1]) {
+          continue;
+      }
+      for (second = first + 1; second < length; second++) {
+          if ((second - first) > 1 && nums[second] === nums[second - 1]) {
+              continue;
+          }
+          third = second + 1;
+          fourth = length - 1;
+          while (third < fourth) {
+              let total: number = nums[first] + nums[second] + nums[third] + nums[fourth];
+              if (total === target) {
+                  resArr.push([nums[first], nums[second], nums[third], nums[fourth]]);
+                  third++;
+                  fourth--;
+                  while (nums[third] === nums[third - 1]) third++;
+                  while (nums[fourth] === nums[fourth + 1]) fourth--;
+              } else if (total < target) {
+                  third++;
+              } else {
+                  fourth--;
+              }
+          }
+      }
+  }
+  return resArr;
+};
+
+const nums = [-1, 0, 1, 2, -1, -4];
+console.log(threeSum(nums));
+export {};
