@@ -58,10 +58,10 @@ function strStr1(haystack: string, needle: string): number {
       j = next[j - 1];
     }
     if (haystack[i] === needle[j]) {
+      j++;
       if (j === needle.length - 1) {
         return i - j;
       }
-      j++;
     }
   }
   return -1;
@@ -91,6 +91,7 @@ function KMP (haystack:string,needle:string) {
     return next
   }
   let next = getNext(needle)
+  console.log(next)
   let i=0;
   let j=0;
   while (i < haystack.length && j < needle.length) {
@@ -105,4 +106,4 @@ function KMP (haystack:string,needle:string) {
   return -1
 }
 
-console.log(KMP('asdfasdfsafabababafabababacasdf', 'abababac'))
+console.log(KMP('asdfasdfsafabababafabababcacasdf', 'abababca'))

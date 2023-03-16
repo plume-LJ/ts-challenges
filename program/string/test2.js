@@ -30,4 +30,4 @@ function KMP(str1, str2) {
   if ((j === str2.length)) return i - j;
   return -1;
 }
-console.log(KMP("asdfasdfsafabababafababababababsdf", "abcac"));
+console.log(KMP("asdfasdfsafabababafababababababsdf", "abababca"));

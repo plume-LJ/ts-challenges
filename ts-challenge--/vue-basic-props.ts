@@ -28,6 +28,8 @@ type PropsToData<Props> = {
   [Key in keyof Props]: TypeToData<Props[Key]>;
 };
 
+type cc = {} extends {type: infer a} ? true: false
+
 declare function VueBasicProps1<
   Data,
   Computed,
@@ -62,6 +64,7 @@ import type { Debug, Equal, Expect, IsAny } from "@type-challenges/utils";
 
 class ClassA {}
 
+type c = InstanceType<typeof RegExp>
 VueBasicProps({
   props: {
     propA: {},

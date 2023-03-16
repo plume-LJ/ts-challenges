@@ -1,7 +1,6 @@
 {
   "name": "ts",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
     "@type-challenges/utils": "^0.1.1",
     "jsdom": "^21.1.0",
@@ -23,6 +22,8 @@
   "homepage": "https://github.com/plume-LJ/ts-challenges#readme",
   "description": "",
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.15.3",
     "ts-node": "^10.9.1"
   }
 }

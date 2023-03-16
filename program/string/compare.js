@@ -74,6 +74,7 @@ function getNext(str) {
 // console.log(getNext('ababcsabab'))
 function KMP(src, dest) {
   var next = getNext(dest);
+  console.log(next)
   var len1 = src.length,
     len2 = dest.length;
   var i = 0,
@@ -91,7 +92,7 @@ function KMP(src, dest) {
   }
   return -1;
 }
-console.log(KMP('ababcsabab', 'csab'))
+console.log(KMP('ababcsabab', 'abababc'))
 function getMoveLengthObj (str) {
   var resObj = {},
       len = str.length;
@@ -131,4 +132,4 @@ function Sunday (src, dest) {
   }
   return -1;
 }
-console.log(Sunday('ababcsababd', 'ababd'))
+// console.log(Sunday('ababcsababd', 'ababd'))
