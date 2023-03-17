@@ -11,7 +11,7 @@
 //   : K extends `${infer FK}.${infer LK}`
 //   ? Get<T[FK & keyof T], LK>
 //   : T[K & keyof T];
-type Get<T, K> = K extends keyof T
+export type Get<T, K> = K extends keyof T
   ? T[K]
   : K extends `${infer FK}.${infer LK}`
   ? Get<T[FK & keyof T], LK>

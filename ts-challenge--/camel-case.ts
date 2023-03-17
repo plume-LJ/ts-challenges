@@ -30,7 +30,7 @@ type _CamelCase<T extends string> = T extends `${infer First}${infer Rest}`
   ? `${Lowercase<First>}${CamelCase<Rest>}`
   : T;
 
-type CamelCase<T extends string> = T extends `_${infer First}${infer Rest}`
+export type CamelCase<T extends string> = T extends `_${infer First}${infer Rest}`
   ? Uppercase<First> extends Lowercase<First>
     ? _CamelCase<T>
     : `${Uppercase<First>}${CamelCase<Rest>}`
