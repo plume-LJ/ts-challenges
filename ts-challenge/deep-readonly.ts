@@ -1,15 +1,24 @@
-type DeepReadonly<T> = {
-  readonly [K in keyof T]: keyof T[K] extends never ? T[K] : DeepReadonly<T[K]>
-}
+// type DeepReadonly<T> = {
+//   readonly [K in keyof T]: keyof T[K] extends never ? T[K] : DeepReadonly<T[K]>
+// }
+type c = keyof string extends never ? true : false
+type ccc = keyof '2'
+type cc = keyof true
 
+type DeepReadonly<T> = {
+  readonly [K in keyof T]: T[K] extends Function ? T[K] : DeepReadonly<T[K]>
+}
 
 // type DeepReadonly<T> = { readonly [key in keyof T]: T[key] extends Function | null ?
 //   T[key] : T[key] extends object ? DeepReadonly<T[key]> : T[key] };
-
+// type DeepReadonly<T> = {
+//   readonly [Key in keyof T]: T[Key] extends PropertyKey | ((...args: any[]) => any) ? T[Key] : DeepReadonly<T[Key]>
+// }
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type d= DeepReadonly<() => 22>
 type a = DeepReadonly<X1>
 type cases = [
   Expect<Equal<DeepReadonly<X1>, Expected1>>,

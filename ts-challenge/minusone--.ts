@@ -102,13 +102,13 @@ type cases = [
   Expect<Equal<MinusOne<9_007_199_254_740_992>, 9_007_199_254_740_991>>
 ];
 
-function fabonacci(n: number) {
+function fabonacci(n: number): number {
   if ((n = 1)) return 1;
   if ((n = 2)) return 1;
   return fabonacci(n - 1) + fabonacci(n - 2);
 }
 
-function tailFabo (n: number, ac =1, acc= 1) {
+function tailFabo (n: number, ac =1, acc= 1): number {
   if (n<=1) return acc
   return tailFabo(n-1,acc,ac+acc)
 }

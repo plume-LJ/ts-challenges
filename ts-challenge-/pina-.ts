@@ -56,7 +56,7 @@ const store = defineStore({
   }),
   getters: {
     stringifiedNum() {
-      // /@ts-expect-error
+      // @ts-expect-error
       this.num += 1
 
       return this.num.toString()
@@ -76,7 +76,7 @@ const store = defineStore({
     reset() {
       this.num = 0
 
-      // /@ts-expect-error
+      // @ts-expect-error
       this.parsedNum = 0
 
       return true
@@ -91,7 +91,7 @@ const store = defineStore({
 store.nopeStateProp
 // @ts-expect-error
 store.nopeGetter
-// /@ts-expect-error
+// @ts-expect-error
 store.stringifiedNum()
 store.init()
 // @ts-expect-error

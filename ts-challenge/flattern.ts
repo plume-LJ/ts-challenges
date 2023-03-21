@@ -20,7 +20,7 @@ import type { Equal, Expect } from "@type-challenges/utils";
 import { MinusOne } from "./minusone--";
 
 type a = Flatten<[1, 2, 3, 4]>
-type aa = [] extends [infer a, ...infer rest] ? rest: false
+type aa = [] extends [infer _a, ...infer rest] ? rest: false
 
 type cases = [
   Expect<Equal<Flatten<[]>, []>>,

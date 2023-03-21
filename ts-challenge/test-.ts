@@ -79,7 +79,7 @@ type TupleToNestedObject<T, U> = T extends [infer first extends PropertyKey,...i
   [k in first]:  TupleToNestedObject<rest,U>
 }:U
 
-type cc = [] extends [infer first extends PropertyKey,...infer rest] ?rest:false
+type cc = [] extends [infer _first extends PropertyKey,...infer rest] ?rest:false
 
 type case1s = [
   Expect<Equal<TupleToNestedObject<['a'], string>, { a: string }>>,

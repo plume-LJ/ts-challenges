@@ -28,7 +28,7 @@ type PropsToData<Props> = {
   [Key in keyof Props]: TypeToData<Props[Key]>;
 };
 
-type cc = {} extends {type: infer a} ? true: false
+type cc = {} extends {type: infer _a} ? true: false
 
 declare function VueBasicProps1<
   Data,
