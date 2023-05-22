@@ -22,8 +22,6 @@ type FindPositiveIndex<
       [...Count, 1]
     >;
 
-    type c = FindNegativeIndex<-2,[1,2,3,4,5]>
-
 type FindNegativeIndex<
   Idx,
   Arr extends unknown[],
@@ -80,3 +78,5 @@ type cases = [
   Expect<Equal<Slice<Arr, 1, 0>, []>>,
   Expect<Equal<Slice<Arr, 10, 20>, []>>
 ];
+
+[].slice

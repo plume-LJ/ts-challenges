@@ -113,7 +113,7 @@ let catArr: Cat[] = [cat];
 // Animal[] >= Cat[]
   // @ts-expect-error
   catArr = animalArr; // ok, 如有有逆变
-catArr[0].meow(); // 允许，但是会在运行时报错
+catArr[0]?.meow(); // 允许，但是会在运行时报错
 
 // 另外一个坏处，协变
 // Animal <= Cat

@@ -67,14 +67,14 @@ function solveNQueens(n: number) {
         continue;
       }
 
-      board[row][col] = 'Q';
+      board[row]![col] = 'Q';
       cols.add(col);
       diagonals1.add(diagonal1);
       diagonals2.add(diagonal2);
 
       backtrack(row + 1);
 
-      board[row][col] = '.';
+      board[row]![col] = '.';
       cols.delete(col);
       diagonals1.delete(diagonal1);
       diagonals2.delete(diagonal2);

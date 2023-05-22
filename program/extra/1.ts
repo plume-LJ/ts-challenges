@@ -12,6 +12,7 @@ var countSubarrays = function(nums: number[], k: number) {
   counts.set(0, 1);
   let sum = 0;
   for (let i = 0; i < n; i++) {
+    // @ts-ignore
       sum += sign(nums[i] - k);
       if (i < kIndex) {
           counts.set(sum, (counts.get(sum) || 0) + 1);
@@ -46,6 +47,7 @@ var countSubarrays1 = function(nums: number[], k: number) {
   counts.set(0, [-1]);
   let sum = 0;
   for (let i = 0; i < n; i++) {
+    // @ts-ignore
       sum += sign(nums[i] - k);
       if (i < kIndex) {
           counts.set(sum, [...(counts.get(sum) ||[]), i]);

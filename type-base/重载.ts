@@ -92,3 +92,5 @@ sample = Direction.North; // Okay
 sample = 'North'; // Okay
 // @ts-expect-error
 sample = 'AnythingElse'; // ERROR!
+
+export {}

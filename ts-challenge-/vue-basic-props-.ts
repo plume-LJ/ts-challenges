@@ -30,7 +30,7 @@ type PropsToData<Props> = {
 
 type cc = {} extends {type: infer _a} ? true: false
 
-declare function VueBasicProps1<
+declare function VueBasicProps<
   Data,
   Computed,
   Methods,
@@ -42,23 +42,23 @@ declare function VueBasicProps1<
   methods: Methods & ThisType<This>;
   props: Props;
 }): unknown;
-declare function VueBasicProps<
-  D extends Record<string, unknown>,
-  C extends Record<string, unknown>,
-  M extends Record<string, unknown>,
-  Props extends Record<string, unknown>
->(options: {
-  props: Props;
-  data: (this: PropsToData<Props>) => D;
-  computed: { [K in keyof C]: (this: D & PropsToData<Props>, ...args: unknown[]) => C[K] };
-  methods: {
-    [K in keyof M]: (
-      this: D &
-        C &
-        PropsToData<Props> & { [K in keyof M]: (...args: unknown[]) => M[K] }
-    ) => M[K];
-  };
-}): any;
+// declare function VueBasicProps<
+//   D extends Record<string, unknown>,
+//   C extends Record<string, unknown>,
+//   M extends Record<string, unknown>,
+//   Props extends Record<string, unknown>
+// >(options: {
+//   props: Props;
+//   data: (this: PropsToData<Props>) => D;
+//   computed: { [K in keyof C]: (this: D & PropsToData<Props>, ...args: unknown[]) => C[K] };
+//   methods: {
+//     [K in keyof M]: (
+//       this: D &
+//         C &
+//         PropsToData<Props> & { [K in keyof M]: (...args: unknown[]) => M[K] }
+//     ) => M[K];
+//   };
+// }): any;
 /* _____________ Test Cases _____________ */
 import type { Debug, Equal, Expect, IsAny } from "@type-challenges/utils";
 

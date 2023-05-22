@@ -7,7 +7,7 @@
       right: number = length - 1;
   let tempStr: string;
   while (left < right) {
-      [s[left],s[right]] = [s[right],s[left]];
+      [s[left],s[right]] = [s[right]!,s[left]!];
       left++;
       right--;
   }
@@ -21,8 +21,8 @@ function reverseStr(s: string, k: number): string {
       left = i;
       right = (i + k - 1) >= length ? length - 1 : i + k - 1;
       while (left < right) {
-          temp = arr[left];
-          arr[left] = arr[right];
+          temp = arr[left]!;
+          arr[left] = arr[right]!;
           arr[right] = temp;
           left++;
           right--;

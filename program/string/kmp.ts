@@ -5,7 +5,7 @@ function strStr(haystack: string, needle: string): number {
     next[0] = j;
     for (let i = 1, length = str.length; i < length; i++) {
       while (j >= 0 && str[i] !== str[j + 1]) {
-        j = next[j];
+        j = next[j]!;
       }
       if (str[i] === str[j + 1]) {
         j++;
@@ -20,7 +20,7 @@ function strStr(haystack: string, needle: string): number {
   let j: number = -1;
   for (let i = 0, length = haystack.length; i < length; i++) {
     while (j >= 0 && haystack[i] !== needle[j + 1]) {
-      j = next[j];
+      j = next[j]!;
     }
     if (haystack[i] === needle[j + 1]) {
       if (j === needle.length - 2) {
@@ -40,7 +40,7 @@ function strStr1(haystack: string, needle: string): number {
     next[0] = j;
     for (let i = 1, length = str.length; i < length; i++) {
       while (j > 0 && str[i] !== str[j]) {
-        j = next[j - 1];
+        j = next[j - 1]!;
       }
       if (str[i] === str[j]) {
         j++;
@@ -55,7 +55,7 @@ function strStr1(haystack: string, needle: string): number {
   let j: number = 0;
   for (let i = 0, length = haystack.length; i < length; i++) {
     while (j > 0 && haystack[i] !== needle[j]) {
-      j = next[j - 1];
+      j = next[j - 1]!;
     }
     if (haystack[i] === needle[j]) {
       j++;

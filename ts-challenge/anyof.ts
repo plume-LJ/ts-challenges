@@ -27,4 +27,10 @@ type cases = [
   Expect<Equal<AnyOf<[]>, false>>
 ];
 
-type c = {a:2} extends Record<PropertyKey, never> ? false : true
+type c = { a: 2 } extends Record<PropertyKey, never> ? false : true;
+
+type EEqual<A, B> = (<U>() => U extends A ? 1 : 2) extends <U>() => U extends B
+  ? 1
+  : 2
+  ? true
+  : false;

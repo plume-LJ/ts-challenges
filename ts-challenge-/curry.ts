@@ -1,5 +1,5 @@
 
-type CurryingFn<F extends Function> = F extends (first: infer First, ...remaining: infer Rest) => infer Ret
+export type CurryingFn<F extends Function> = F extends (first: infer First, ...remaining: infer Rest) => infer Ret
   ? Rest extends []
   ? F
   : (first: First) => CurryingFn<(...args: Rest) => Ret>

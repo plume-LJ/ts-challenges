@@ -1,30 +1,30 @@
 
-declare function SimpleVue<
-  D extends Record<string, unknown>,
-  C extends Record<string, unknown>,
-  M extends Record<string, unknown>
->(options: {
-  data: (this: never) => D
-  computed: { [K in keyof C]: (this: D, ...args: unknown[]) => C[K] }
-  methods: {
-    [K in keyof M]: (
-      this: D & C & { [K in keyof M]: (...args: unknown[]) => M[K] }
-    ) => M[K]
-  }
-}): any
-// type Computed<T> = {
-//   [key in keyof T]: T[key] extends (...args: any) => any
-//     ? ReturnType<T[key]>
-//     : T[key];
-// };
+// declare function SimpleVue<
+//   D extends Record<string, unknown>,
+//   C extends Record<string, unknown>,
+//   M extends Record<string, unknown>
+// >(options: {
+//   data: (this: never) => D
+//   computed: { [K in keyof C]: (this: D, ...args: unknown[]) => C[K] }
+//   methods: {
+//     [K in keyof M]: (
+//       this: D & C & { [K in keyof M]: (...args: unknown[]) => M[K] }
+//     ) => M[K]
+//   }
+// }): any
+type Computed<T> = {
+  [key in keyof T]: T[key] extends (...args: any) => any
+    ? ReturnType<T[key]>
+    : T[key];
+};
 
-// declare function SimpleVue<D, C, M>(
-//   options: {
-//     data: () => D;
-//     computed?: C & ThisType<D>;
-//     methods?: M & ThisType<D & Computed<C> & M>;
-//   } & ThisType<null>
-// ): any;
+declare function SimpleVue<D, C, M>(
+  options: {
+    data: () => D;
+    computed?: C & ThisType<D>;
+    methods?: M & ThisType<D & Computed<C> & M>;
+  } & ThisType<null>
+): any;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

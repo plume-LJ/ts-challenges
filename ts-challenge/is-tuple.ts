@@ -6,7 +6,7 @@
 //     : false
 //   : false;
 
-type IsTuple<T> = [T] extends [never]
+export type IsTuple<T> = [T] extends [never]
   ? false
   : T extends readonly any[]
   ? any[] extends T
@@ -17,7 +17,7 @@ type c = [1,2,3]
 type cc = readonly [1,2,3]
 let cc:any[] = [1,2,3]
 type ccc= cc extends c ? true : false
-type cccc= any[] extends cc ? true : false
+type cccc= any[] extends typeof cc ? true : false
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
 import { IsNever } from "./is-never";

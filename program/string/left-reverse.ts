@@ -3,7 +3,7 @@ function reverseLeftWords(s: string, n: number): string {
   function reverseWords(strArr: string[], start: number, end: number): void {
     // let temp: string;
     while (start < end) {
-      [strArr[start], strArr[end]] = [strArr[end], strArr[start]];
+      [strArr[start], strArr[end]] = [strArr[end]!, strArr[start]!];
       // temp = strArr[start];
       // strArr[start] = strArr[end];
       // strArr[end] = temp;
