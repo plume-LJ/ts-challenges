@@ -1,45 +1,4 @@
 <body></body>
-<script>
-  // Set up the canvas element
-const canvas = document.createElement('canvas');
-canvas.width = 400;
-canvas.height = 400;
-document.body.appendChild(canvas);
-
-const ctx = canvas.getContext('2d');
-
-// Set up the initial position of the heart
-let x = canvas.width / 2;
-let y = canvas.height / 2;
-let radius = 50;
-let t = 0;
-
-// Run the main game loop
-function draw() {
-  // Update the position of the heart
-  t += 0.05;
-  x = canvas.width / 2 + 50 * (2 * Math.sin(t) ** 3);
-  y = canvas.height / 2 - 40 * (Math.cos(t) - Math.sin(t) ** 2);
-
-  // Clear the canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Draw the heart
-  ctx.beginPath();
-  ctx.arc(x - radius / 2, y - radius / 2, radius / 2, 0, 2 * Math.PI);
-  ctx.arc(x + radius / 2, y - radius / 2, radius / 2, 0, 2 * Math.PI);
-  ctx.moveTo(x - radius / 2, y);
-  ctx.lineTo(x, y + radius);
-  ctx.lineTo(x + radius / 2, y);
-  ctx.closePath();
-  ctx.fillStyle = 'red';
-  ctx.fill();
-
-  // Request the next frame
-  requestAnimationFrame(draw);
-}
-
-// Start the animation
-requestAnimationFrame(draw);
-
-</script>
+<!-- <script src="./1.js" ></script> -->
+<script src="./three.min.js" ></script>
+<script src="./2.js" ></script>
