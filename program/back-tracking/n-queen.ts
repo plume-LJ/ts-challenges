@@ -47,7 +47,9 @@
 // }
 // ```javascript
 function solveNQueens(n: number) {
-  const board = Array.from({ length: n }, () => Array.from({ length: n }, () => '.'));
+  const board = Array.from({ length: n }, () =>
+    Array.from({ length: n }, () => ".")
+  );
   const cols = new Set<number>();
   const diagonals1 = new Set<number>();
   const diagonals2 = new Set<number>();
@@ -55,7 +57,7 @@ function solveNQueens(n: number) {
 
   function backtrack(row: number) {
     if (row === n) {
-      const copy = board.map(arr => arr.join(''));
+      const copy = board.map((arr) => arr.join(""));
       res.push(copy);
       return;
     }
@@ -63,18 +65,22 @@ function solveNQueens(n: number) {
     for (let col = 0; col < n; col++) {
       const diagonal1 = row - col;
       const diagonal2 = row + col;
-      if (cols.has(col) || diagonals1.has(diagonal1) || diagonals2.has(diagonal2)) {
+      if (
+        cols.has(col) ||
+        diagonals1.has(diagonal1) ||
+        diagonals2.has(diagonal2)
+      ) {
         continue;
       }
 
-      board[row]![col] = 'Q';
+      board[row]![col] = "Q";
       cols.add(col);
       diagonals1.add(diagonal1);
       diagonals2.add(diagonal2);
 
       backtrack(row + 1);
 
-      board[row]![col] = '.';
+      board[row]![col] = ".";
       cols.delete(col);
       diagonals1.delete(diagonal1);
       diagonals2.delete(diagonal2);
@@ -84,7 +90,7 @@ function solveNQueens(n: number) {
   backtrack(0);
   return res;
 }
-console.log(solveNQueens(3))
-console.log(solveNQueens(4))
-console.log(solveNQueens(5))
-console.log(solveNQueens(6))
+console.log(solveNQueens(3), solveNQueens(3).length);
+console.log(solveNQueens(4), solveNQueens(4).length);
+console.log(solveNQueens(5), solveNQueens(5).length);
+console.log(solveNQueens(6), solveNQueens(6).length);

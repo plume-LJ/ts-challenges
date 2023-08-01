@@ -49,7 +49,7 @@ function getPath(end: Point): Point[] {
   let curr: Point | null = end;
 
   while (curr !== null) {
-    path.unshift(curr);
+    path.unshift(new Point(curr.x, curr.y));
     curr = curr.prev;
   }
 

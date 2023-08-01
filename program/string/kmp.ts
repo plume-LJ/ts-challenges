@@ -16,7 +16,7 @@ function strStr(haystack: string, needle: string): number {
   }
   if (needle.length === 0) return 0;
   let next: number[] = getNext(needle);
-  console.log(next)
+  console.log(next);
   let j: number = -1;
   for (let i = 0, length = haystack.length; i < length; i++) {
     while (j >= 0 && haystack[i] !== needle[j + 1]) {
@@ -51,7 +51,7 @@ function strStr1(haystack: string, needle: string): number {
   }
   if (needle.length === 0) return 0;
   let next: number[] = getNext(needle);
-  console.log(next)
+  console.log(next);
   let j: number = 0;
   for (let i = 0, length = haystack.length; i < length; i++) {
     while (j > 0 && haystack[i] !== needle[j]) {
@@ -69,41 +69,40 @@ function strStr1(haystack: string, needle: string): number {
 
 // console.log(strStr("hello", "ll"));
 // console.log(strStr1("hello", "ll"));
-console.log(strStr1('asdfasdfsafabababafabababacasdf', 'abcabdddabcabc'));
-export {}
+console.log(strStr1("asdfasdfsafabababafabababacasdf", "abcabdddabcabc"));
+export {};
 
-
-function KMP (haystack:string,needle:string) {
+function KMP(haystack: string, needle: string) {
   function getNext(str: string) {
-    let next = Array(str.length-1)
-    let j = -1
-    next[0] = j
-    let i =0
-    while (i<str.length) {
-      if (j=== -1 || str[i] === str[j]) {
-        i++
-        j++
-        next[i] = j
+    let next = Array(str.length);
+    let j = -1;
+    next[0] = j;
+    let i = 0;
+    while (i < str.length - 1) {
+      if (j === -1 || str[i] === str[j]) {
+        i++;
+        j++;
+        next[i] = j;
       } else {
-        j = next[j]
+        j = next[j];
       }
     }
-    return next
+    return next;
   }
-  let next = getNext(needle)
-  console.log(next)
-  let i=0;
-  let j=0;
+  let next = getNext(needle);
+  console.log(next);
+  let i = 0;
+  let j = 0;
   while (i < haystack.length && j < needle.length) {
     if (j === -1 || haystack[i] === needle[j]) {
-      j++
-      i++
+      j++;
+      i++;
     } else {
-      j = next[j]
+      j = next[j];
     }
   }
-  if (j === needle.length) return i-j 
-  return -1
+  if (j === needle.length) return i - j;
+  return -1;
 }
 
-console.log(KMP('asdfasdfsafabababafabababcacasdf', 'abababca'))
+console.log(KMP("asdfasdfsafabababafabababcacasdf", "abababca"));
