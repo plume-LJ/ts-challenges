@@ -53,7 +53,7 @@ function partition(arr: number[], left: number, right: number): number {
   return j;
 }
 
-let arr = [1, 3, 5, 7, 9, 2, 4, 6, 8];
-135782469
-quickSort(arr, 0, arr.length - 1);
-console.log(arr);
+// let arr = [1, 3, 5, 7, 9, 2, 4, 6, 8];
+// 135782469
+// quickSort(arr, 0, arr.length - 1);
+// console.log(arr);

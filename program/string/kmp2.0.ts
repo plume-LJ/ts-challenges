@@ -72,7 +72,8 @@ function strToInt(str: string): number {
 
   for (let char of str) {
     const type = getCharType(char);
-    if (stateMachine[state]) 
+    if (stateMachine[state])
+      // @ts-ignore
       state = stateMachine[state][type];
 
     if (state === "signed") {
