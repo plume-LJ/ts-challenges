@@ -1,0 +1,13 @@
+export const foo = 2;
+export const bar = 3;
+export const baz = 4;
+export const qux = 5;
+export const quux = 6;
+export const corge = 7;
+export const grault = 8;
+export const garply = 9;
+export const waldo = 10;
+export const fred = 11;
+export const plugh = 12;
+export const xyzzy = 13;
+export const thud = 14;

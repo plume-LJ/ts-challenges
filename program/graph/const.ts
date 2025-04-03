@@ -1,0 +1,51 @@
+enum Permission {
+	Owner = 1 << 12,
+	OwnerWrite = 1 << 11,
+	OwnerExecute = 1 << 10,
+	OwnerRead = 1 << 9,
+	UserRead = 1 << 8,
+	UserWrite = 1 << 7,
+	UserExecute = 1 << 6,
+	GroupRead = 1 << 5,
+	GroupWrite = 1 << 4,
+	GroupExecute = 1 << 3,
+	AllRead = 1 << 2,
+	AllWrite = 1 << 1,
+	AllExecute = 1 << 0,
+	None = 0,
+}
+
+console.log(Permission.AllExecute | Permission.AllRead, Permission);
+
+type KeyT = keyof any;
+
+let aa = {
+	'0': 'None',
+	'1': 'AllExecute',
+	'2': 'AllWrite',
+	'4': 'AllRead',
+	'8': 'GroupExecute',
+	'16': 'GroupWrite',
+	'32': 'GroupRead',
+	'64': 'UserExecute',
+	'128': 'UserWrite',
+	'256': 'UserRead',
+	'512': 'OwnerRead',
+	'1024': 'OwnerExecute',
+	'2048': 'OwnerWrite',
+	'4096': 'Owner',
+	Owner: 4096,
+	OwnerWrite: 2048,
+	OwnerExecute: 1024,
+	OwnerRead: 512,
+	UserRead: 256,
+	UserWrite: 128,
+	UserExecute: 64,
+	GroupRead: 32,
+	GroupWrite: 16,
+	GroupExecute: 8,
+	AllRead: 4,
+	AllWrite: 2,
+	AllExecute: 1,
+	None: 0,
+} as const;
